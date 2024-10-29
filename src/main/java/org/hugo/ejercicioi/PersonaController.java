@@ -29,6 +29,7 @@ import java.util.ResourceBundle;
 public class PersonaController {
     @FXML
     private TableView<Personas> tablaPersonas;
+
     @FXML
     private Label lbl_filtrar;
 
@@ -70,6 +71,7 @@ public class PersonaController {
 
     @FXML
     private MenuItem menuEli;
+
     @FXML
     private ResourceBundle bundle;
 
@@ -104,6 +106,10 @@ public class PersonaController {
         imgMenos.setImage(image4);
         updateUI();
     }
+
+    /**
+     * Actualiza los elementos de la interfaz de usuario utilizando el ResourceBundle.
+     */
     private void updateUI() {
         btt_agregar.setText(bundle.getString("add_person"));
         btt_modificar.setText(bundle.getString("modify_person"));
@@ -113,6 +119,7 @@ public class PersonaController {
         menuEli.setText(bundle.getString("delete_person"));
         // Aquí puedes actualizar otros elementos de la UI usando el ResourceBundle.
     }
+
     /**
      * Carga la lista de personas desde la base de datos y actualiza la tabla.
      */
@@ -192,6 +199,12 @@ public class PersonaController {
             }
         }
     }
+
+    /**
+     * Maneja la selección de elementos del menú.
+     *
+     * @param event Evento de acción que desencadena el manejo del menú.
+     */
     @FXML
     private void manejoMenu(ActionEvent event) {
         MenuItem menuItem = (MenuItem) event.getSource();
@@ -201,6 +214,7 @@ public class PersonaController {
             eliminar(new ActionEvent(btt_eliminar, null));
         }
     }
+
     /**
      * Muestra una alerta con un mensaje y título especificado.
      *
