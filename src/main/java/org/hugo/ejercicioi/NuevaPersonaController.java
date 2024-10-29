@@ -147,7 +147,7 @@ public class NuevaPersonaController {
      */
     private void mostrarInformacion(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Éxito");
+        alert.setTitle("Informacion");
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait(); // Muestra la alerta y espera a que el usuario la cierre
@@ -160,7 +160,7 @@ public class NuevaPersonaController {
      */
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error en los datos");
+        alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait(); // Muestra la alerta y espera a que el usuario la cierre

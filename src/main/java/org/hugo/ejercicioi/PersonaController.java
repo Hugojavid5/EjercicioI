@@ -95,7 +95,7 @@ public class PersonaController {
 
             if (event.getSource() == btt_agregar) {
                 modalStage.setTitle("Agregar Persona");
-            } else if (event.getSource() == btt_modificar) {
+            } else if (event.getSource() == btt_modificar || event.getSource() instanceof MenuItem) {
                 Personas personaSeleccionada = tablaPersonas.getSelectionModel().getSelectedItem();
                 if (personaSeleccionada == null) {
                     mostrarAlerta("No hay ninguna persona seleccionada", "Por favor, seleccione una persona para editar.");
@@ -135,7 +135,15 @@ public class PersonaController {
             }
         }
     }
-
+    @FXML
+    private void manejoMenu(ActionEvent event) {
+        MenuItem menuItem = (MenuItem) event.getSource();
+        if ("Modificar".equals(menuItem.getText())) {
+            agregar(new ActionEvent(btt_modificar, null));
+        } else if ("Eliminar".equals(menuItem.getText())) {
+            eliminar(new ActionEvent(btt_eliminar, null));
+        }
+    }
     /**
      * Muestra una alerta con un mensaje y título especificado.
      *
