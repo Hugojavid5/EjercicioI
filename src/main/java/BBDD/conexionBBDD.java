@@ -5,6 +5,8 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class conexionBBDD {
 
@@ -30,6 +32,20 @@ public class conexionBBDD {
         connection.close(); // Cierra la conexión
         return connection;   // Retorna la conexión cerrada (opcional)
     }
+    public static Properties loadProperties() {
+        try (FileInputStream fs = new FileInputStream("db.properties")) {
+            Properties props = new Properties();
+            props.load(fs);
+            return props;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+
     public static void main(String[] args) {
         try {
             conexionBBDD conexion = new conexionBBDD();

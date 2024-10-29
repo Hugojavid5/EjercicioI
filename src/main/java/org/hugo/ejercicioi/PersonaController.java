@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -18,6 +19,8 @@ import javafx.scene.image.ImageView;
 import java.util.Objects;
 import java.io.IOException;
 import java.sql.SQLException;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import java.util.List;
 
 /**
@@ -69,9 +72,9 @@ public class PersonaController {
      */
     @FXML
     public void initialize() {
-        c_nombre.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getNombre()));
-        c_apellidos.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getApellido()));
-        c_edad.setCellValueFactory(cellData -> new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getEdad()).asObject());
+        c_nombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
+        c_apellidos.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getApellido()));
+        c_edad.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getEdad()).asObject());
 
         cargarPersonasDesdeBD();
         btt_agregar.setTooltip(new Tooltip("Agregar una nueva persona"));
