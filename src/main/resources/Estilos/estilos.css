@@ -1,6 +1,8 @@
 /*Estilo del fxml*/
 .root {
     -fx-background-color: #f0edec;
+    -fx-font-family:"Arial";
+    -fx-font-size:12px
 }
 .table-view {
     -fx-background-color: #ffc5b2;
@@ -25,13 +27,9 @@
     -fx-border-radius: 2;
 }
 .text-field .text {
-    -fx-fill: black;
+    -fx-fill: white;
 }
 .label {
      -fx-text-fill: #d76f07;
-     -fx-font-size: 12px;
- }
- .root {
-     -fx-font-family: "Arial";
      -fx-font-size: 12px;
  }

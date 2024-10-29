@@ -32,8 +32,8 @@
             <contextMenu>
                 <ContextMenu id="cmOpciones">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#manejoMenu" text="Modificar" />
-                        <MenuItem mnemonicParsing="false" onAction="#manejoMenu" text="Eliminar" />
+                        <MenuItem fx:id="menuMod" mnemonicParsing="false" onAction="#manejoMenu" text="Modificar" />
+                        <MenuItem fx:id="menuEli" mnemonicParsing="false" onAction="#manejoMenu" text="Eliminar" />
                     </items>
                 </ContextMenu>
             </contextMenu>

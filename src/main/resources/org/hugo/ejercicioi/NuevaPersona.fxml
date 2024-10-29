@@ -10,20 +10,29 @@
     <children>
         <HBox alignment="CENTER_LEFT" spacing="40.0">
             <children>
-                <Label text="Nombre" />
-                <TextField fx:id="txt_Nombre" prefWidth="274.0" />
+                <Label fx:id="lbl_nombre" text="Nombre:" VBox.vgrow="ALWAYS">
+                    <padding>
+                        <Insets bottom="10.0" />
+                    </padding>
+                </Label>
             </children>
         </HBox>
         <HBox alignment="CENTER_LEFT" spacing="35.0">
             <children>
-                <Label text="Apellidos" />
-                <TextField fx:id="txt_Apellidos" prefWidth="273.0" />
+                <Label fx:id="lbl_apellidos" text="Apellidos:" VBox.vgrow="ALWAYS">
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin>
+                </Label>
             </children>
         </HBox>
         <HBox alignment="CENTER_LEFT" spacing="60.0">
             <children>
-                <Label text="Edad" />
-                <TextField fx:id="txt_Edad" prefHeight="24.0" prefWidth="103.0" />
+                <Label fx:id="lbl_edad" text="Edad:" VBox.vgrow="ALWAYS">
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin>
+                </Label>
             </children>
         </HBox>
         <HBox alignment="CENTER" spacing="50.0">

@@ -6,8 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -22,6 +20,7 @@ import java.sql.SQLException;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * Controlador para la gestión de personas en la interfaz de usuario.
@@ -30,6 +29,8 @@ import java.util.List;
 public class PersonaController {
     @FXML
     private TableView<Personas> tablaPersonas;
+    @FXML
+    private Label lbl_filtrar;
 
     @FXML
     private TextField txt_filtrar;
@@ -64,6 +65,14 @@ public class PersonaController {
     @FXML
     private ImageView imgMenos;
 
+    @FXML
+    private MenuItem menuMod;
+
+    @FXML
+    private MenuItem menuEli;
+    @FXML
+    private ResourceBundle bundle;
+
     private ObservableList<Personas> personasList = FXCollections.observableArrayList();
     private DaoPersonas daoPersona = new DaoPersonas();
 
@@ -72,6 +81,10 @@ public class PersonaController {
      */
     @FXML
     public void initialize() {
+        bundle = HelloApplication.getBundle();
+        // Configurar la interfaz
+        updateUI();
+        cargarPersonasDesdeBD();
         c_nombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
         c_apellidos.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getApellido()));
         c_edad.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getEdad()).asObject());
@@ -89,8 +102,17 @@ public class PersonaController {
         imgEditar.setImage(image3);
         Image image4 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Imagenes/menos.png")));
         imgMenos.setImage(image4);
+        updateUI();
     }
-
+    private void updateUI() {
+        btt_agregar.setText(bundle.getString("add_person"));
+        btt_modificar.setText(bundle.getString("modify_person"));
+        btt_eliminar.setText(bundle.getString("delete_person"));
+        lbl_filtrar.setText(bundle.getString("filter_by_name"));
+        menuMod.setText(bundle.getString("modify_person"));
+        menuEli.setText(bundle.getString("delete_person"));
+        // Aquí puedes actualizar otros elementos de la UI usando el ResourceBundle.
+    }
     /**
      * Carga la lista de personas desde la base de datos y actualiza la tabla.
      */
@@ -113,15 +135,20 @@ public class PersonaController {
     @FXML
     private void agregar(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/hugo/ejercicioh/NuevaPersona.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ejercicioi/ejercicioImodal.fxml"));
+            loader.setResources(bundle);  // Pasar el ResourceBundle al modal
             Parent modalRoot = loader.load();
+            NuevaPersonaController modalController = loader.getController();
+            // Pasar el ResourceBundle al modal
+            modalController.setBundle(bundle);
             Stage modalStage = new Stage();
+            modalStage.setResizable(false);
             modalStage.initModality(Modality.WINDOW_MODAL);
             modalStage.initOwner(btt_agregar.getScene().getWindow());
 
-            NuevaPersonaController modalController = loader.getController();
+            modalController = loader.getController();
             modalController.setPersonasList(personasList);
-            modalController.setDaoPersona(daoPersona);  // Pasamos el DAO al modal
+            modalController.setDaoPersona(daoPersona);
 
             if (event.getSource() == btt_agregar) {
                 modalStage.setTitle("Agregar Persona");
@@ -132,7 +159,7 @@ public class PersonaController {
                     return;
                 }
                 modalStage.setTitle("Editar Persona");
-                modalController.setPersonaAEditar(personaSeleccionada); // Configura la persona a editar
+                modalController.setPersonaAEditar(personaSeleccionada);
             }
 
             modalStage.setScene(new Scene(modalRoot));

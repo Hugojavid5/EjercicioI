@@ -8,6 +8,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.sql.SQLException;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import java.util.ResourceBundle;
+
 
 /**
  * Controlador para la ventana de agregar o editar una persona.
@@ -23,12 +27,34 @@ public class NuevaPersonaController {
 
     @FXML
     private TextField txt_Edad;
+    @FXML
+    public Label lbl_apellidos;
+    @FXML
+    public Label lbl_nombre;
+    @FXML
+    public Label lbl_edad;
+    @FXML
+    public Button btt_agregar;
+    @FXML
+    public Button btt_cancelar;
 
     private ObservableList<Personas> personasList; // Lista de personas a modificar o agregar
     private Personas personaAEditar = null; // Referencia a la persona a editar, si existe
     private DaoPersonas daoPersona; // Objeto DAO para realizar operaciones de base de datos
     private boolean esModificacion = false; // Indica si se está modificando una persona existente
-
+    private static ResourceBundle bundle;
+    public void setBundle(ResourceBundle bundle) {
+        NuevaPersonaController.bundle = bundle;
+        updateUI();
+    }
+    private void updateUI() {
+        // Ejemplo: cambiar título del campo según el idioma
+        lbl_apellidos.setText(bundle.getString("surname"));
+        lbl_nombre.setText(bundle.getString("name"));
+        lbl_edad.setText(bundle.getString("age"));
+        btt_agregar.setText(bundle.getString("save"));
+        btt_cancelar.setText(bundle.getString("delete"));
+    }
     /**
      * Establece la lista de personas a la que se pueden agregar o modificar.
      *
