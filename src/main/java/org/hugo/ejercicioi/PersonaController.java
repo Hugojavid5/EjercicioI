@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.HBox;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -47,8 +48,18 @@ public class PersonaController {
 
     @FXML
     private Button btt_eliminar;
+
     @FXML
     private ImageView imgPersonas;
+
+    @FXML
+    private ImageView imgMas;
+
+    @FXML
+    private ImageView imgEditar;
+
+    @FXML
+    private ImageView imgMenos;
 
     private ObservableList<Personas> personasList = FXCollections.observableArrayList();
     private DaoPersonas daoPersona = new DaoPersonas();
@@ -67,8 +78,14 @@ public class PersonaController {
         btt_modificar.setTooltip(new Tooltip("Modificar una persona"));
         btt_eliminar.setTooltip(new Tooltip("Eliminar una persona"));
         txt_filtrar.setTooltip(new Tooltip("Filtrar personas por su nombre"));
-        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/iconos/contactos.jpeg")));
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Imagenes/contactos.jpeg")));
         imgPersonas.setImage(image);
+        Image image2 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Imagenes/mas.png")));
+        imgMas.setImage(image2);
+        Image image3 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Imagenes/editar.png")));
+        imgEditar.setImage(image3);
+        Image image4 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Imagenes/menos.png")));
+        imgMenos.setImage(image4);
     }
 
     /**
