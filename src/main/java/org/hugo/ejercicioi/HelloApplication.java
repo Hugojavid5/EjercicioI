@@ -28,17 +28,27 @@ public class HelloApplication extends Application {
      * @throws IOException si ocurre un error al cargar el archivo FXML.
      */
     public void start(Stage stage) throws IOException {
+        // Cargar las propiedades de configuración de la base de datos
         Properties connConfig = conexionBBDD.loadProperties();
-        String lang = connConfig.getProperty("language");
-        Locale locale = new Locale.Builder().setLanguage(lang).build();
-        bundle = ResourceBundle.getBundle("properties/lang", locale);
+        String lang = connConfig != null ? connConfig.getProperty("language", "en") : "en"; // Usa "en" como idioma por defecto
 
+        // Configurar el locale con el idioma seleccionado
+        Locale locale = new Locale(lang);
+        bundle = ResourceBundle.getBundle("Properties.lang", locale);
+
+        // Configurar el cargador de la interfaz FXML
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("EjercicioI.fxml"));
+        fxmlLoader.setResources(bundle);
         Scene scene = new Scene(fxmlLoader.load(), 800, 500);
-        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Imagenes/agenda.png")));
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/Estilos/styles.css")).toExternalForm());
 
+        // Configurar el icono de la aplicación
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Imagenes/agenda.png")));
         stage.getIcons().add(icon);
+
+        // Aplicar estilos CSS
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/Estilos/estilos.css")).toExternalForm());
+
+        // Configuración de la ventana principal
         stage.setMaxWidth(800);
         stage.setMinWidth(500);
         stage.setMinHeight(400);

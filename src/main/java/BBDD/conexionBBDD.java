@@ -1,5 +1,6 @@
 package BBDD;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -33,10 +34,14 @@ public class conexionBBDD {
         return connection;   // Retorna la conexión cerrada (opcional)
     }
     public static Properties loadProperties() {
-        try (FileInputStream fs = new FileInputStream("bbdd.properties")) {
-            Properties props = new Properties();
-            props.load(fs);
-            return props;
+        Properties properties = new Properties();
+        try (InputStream input = conexionBBDD.class.getResourceAsStream("/db.properties")) {
+            if (input == null) {
+                System.out.println("Archivo db.properties no encontrado en el classpath.");
+                return null;
+            }
+            properties.load(input);
+            return properties;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,7 +50,7 @@ public class conexionBBDD {
 
 
 
-
+/*
     public static void main(String[] args) {
         try {
             conexionBBDD conexion = new conexionBBDD();
@@ -55,4 +60,5 @@ public class conexionBBDD {
             System.err.println("Error al conectar con la base de datos: " + e.getMessage());
         }
     }
+ */
 }
