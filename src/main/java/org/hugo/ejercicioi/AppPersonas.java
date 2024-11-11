@@ -18,11 +18,11 @@ import java.util.ResourceBundle;
  * de usuario (GUI) que gestiona la carga y configuración de la ventana
  * principal de la aplicación.
  */
-public class HelloApplication extends Application {
+public class AppPersonas extends Application {
     private static ResourceBundle bundle;
 
     /**
-     * Método que inicia la aplicación y configura la ventana principal.
+     * Metodo que inicia la aplicación y configura la ventana principal.
      *
      * @param stage el escenario principal de la aplicación.
      * @throws IOException si ocurre un error al cargar el archivo FXML.
@@ -37,7 +37,7 @@ public class HelloApplication extends Application {
         bundle = ResourceBundle.getBundle("Properties.lang", locale);
 
         // Configurar el cargador de la interfaz FXML
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("EjercicioI.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(AppPersonas.class.getResource("EjercicioI.fxml"));
         fxmlLoader.setResources(bundle);
         Scene scene = new Scene(fxmlLoader.load(), 800, 500);
 
@@ -52,13 +52,14 @@ public class HelloApplication extends Application {
         stage.setMaxWidth(800);
         stage.setMinWidth(500);
         stage.setMinHeight(400);
+        stage.setResizable(false);
         stage.setTitle("Personas");
         stage.setScene(scene);
         stage.show();
     }
 
     /**
-     * Método estático que obtiene el ResourceBundle utilizado para la
+     * Metodo estático que obtiene el ResourceBundle utilizado para la
      * localización de la aplicación.
      *
      * @return el ResourceBundle de la aplicación.
@@ -68,8 +69,8 @@ public class HelloApplication extends Application {
     }
 
     /**
-     * El método main es el punto de entrada de la aplicación.
-     *
+     * El metodo main es el punto de entrada de la aplicación.
+
      * @param args argumentos de la línea de comandos.
      */
     public static void main(String[] args) {

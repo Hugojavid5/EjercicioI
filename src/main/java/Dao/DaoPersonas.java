@@ -3,6 +3,8 @@ package Dao;
 
 import BBDD.conexionBBDD;
 import Model.Personas;
+
+import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,8 @@ public class DaoPersonas {
                 );
                 personas.add(persona);
             }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
         return personas;
     }
@@ -55,6 +59,8 @@ public class DaoPersonas {
             statement.setString(2, persona.getApellido());
             statement.setInt(3, persona.getEdad());
             statement.executeUpdate();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -74,6 +80,8 @@ public class DaoPersonas {
             statement.setInt(3, persona.getEdad());
             statement.setInt(4, persona.getId());
             statement.executeUpdate();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -90,6 +98,8 @@ public class DaoPersonas {
              PreparedStatement statement = conexion.prepareStatement(query)) {
             statement.setInt(1, id);
             statement.executeUpdate();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 }

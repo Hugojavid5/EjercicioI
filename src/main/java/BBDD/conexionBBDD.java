@@ -1,64 +1,70 @@
 package BBDD;
-
-import java.io.InputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.io.FileInputStream;
-import java.io.IOException;
 
+/**
+ * La clase {@code ConexionBBDD} gestiona la conexión a una base de datos.
+ * Se encarga de cargar las propiedades de conexión desde un archivo
+ * y proporcionar un metodo para obtener la conexion.
+ */
 public class conexionBBDD {
-
-    /** Conexión activa a la base de datos. */
     private final Connection connection;
 
-    public conexionBBDD() throws SQLException {
-        Properties connConfig = new Properties();
-        connConfig.setProperty("user", "root");
-        connConfig.setProperty("password", "mypass");
+    /**
+     * Crea una nueva conexión a la base de datos utilizando las propiedades
+     * definidas en el archivo "db.properties".
+     *
+     * @throws SQLException si ocurre un error al establecer la conexión a la base de datos.
+     * @throws FileNotFoundException si el archivo de propiedades no se encuentra.
+     */
+    public conexionBBDD() throws SQLException, FileNotFoundException {
+        Properties props = loadProperties();
+        String url = props.getProperty("dburl");
+        connection = DriverManager.getConnection(url, props);
 
-        connection = DriverManager.getConnection(
-                "jdbc:mariadb://127.0.0.1:33066/personas?serverTimezone=Europe/Madrid",
-                connConfig
-        );
-        connection.setAutoCommit(true);
+        // Obtiene información sobre la base de datos.
         DatabaseMetaData databaseMetaData = connection.getMetaData();
     }
+
+    /**
+     * Devuelve la conexión a la base de datos.
+     *
+     * @return la conexión activa.
+     */
     public Connection getConnection() {
         return connection;
     }
-    public Connection CloseConexion() throws SQLException {
-        connection.close(); // Cierra la conexión
-        return connection;   // Retorna la conexión cerrada (opcional)
+
+    /**
+     * Cierra la conexión a la base de datos.
+     *
+     * @throws SQLException si ocurre un error al cerrar la conexión.
+     * @return la conexión cerrada (null si se ha cerrado correctamente).
+     */
+    public Connection closeConexion() throws SQLException {
+        connection.close();
+        return connection;
     }
-    public static Properties loadProperties() {
-        Properties properties = new Properties();
-        try (InputStream input = conexionBBDD.class.getResourceAsStream("/db.properties")) {
-            if (input == null) {
-                System.out.println("Archivo db.properties no encontrado en el classpath.");
-                return null;
-            }
-            properties.load(input);
-            return properties;
+
+    /**
+     * Carga las propiedades de conexión desde el archivo "db.properties".
+     *
+     * @return un objeto {@code Properties} que contiene las propiedades de conexión.
+     * @throws FileNotFoundException si el archivo de propiedades no se encuentra.
+     */
+    public static Properties loadProperties() throws FileNotFoundException {
+        try (FileInputStream fs = new FileInputStream("db.properties")) {
+            Properties props = new Properties();
+            props.load(fs);
+            return props;
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
-
-/*
-    public static void main(String[] args) {
-        try {
-            conexionBBDD conexion = new conexionBBDD();
-            System.out.println("Conexión establecida exitosamente.");
-            conexion.CloseConexion();
-        } catch (SQLException e) {
-            System.err.println("Error al conectar con la base de datos: " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
- */
 }

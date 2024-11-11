@@ -83,7 +83,7 @@ public class PersonaController {
      */
     @FXML
     public void initialize() {
-        bundle = HelloApplication.getBundle();
+        bundle = AppPersonas.getBundle();
         // Configurar la interfaz
         updateUI();
         cargarPersonasDesdeBD();
